@@ -1,16 +1,22 @@
-import './App.css';
+import './style/App.css';
 import { useDispatch, useSelector } from 'react-redux'
-import { getUsersFetch } from './actions'
+import { getUsers } from '../store/action/actions'
 import { useEffect } from 'react';
 
 function App() {
+
   const dispatch = useDispatch()
-  const users = useSelector(state => state.myFirstReducer.users)
-  useEffect(() => { }, [])
+
+  useEffect(() => {
+    dispatch(getUsers())
+  }, [dispatch])
+  const users = useSelector(state => state.user.users)
+  // Add loading
+  // USEMEMO , USECALLBACK
 
   return (
+    //USE GRAPHQL CLIENT
     <div className="App">
-      <button onClick={() => { console.log('vfdvd'); dispatch(getUsersFetch()) }}>Get Users</button>
       {users ? <div>
         Users:{users.map((user => (<div className="card">
           <div className="name">{user.name}({user.username})</div>
